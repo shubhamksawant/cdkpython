@@ -1,29 +1,33 @@
 from aws_cdk import (
-    # Duration,
+    Duration,
     Stack,
-    # aws_sqs as sqs,
-    aws_lambda as _lambda,
+    aws_sqs as sqs,
+    aws_s3 as s3,
 )
 from constructs import Construct
 
-class FusionSubscriberStack(Stack):
+class FusionStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
-
-        # The code that defines your stack goes here
-
-        # example resource
-        # queue = sqs.Queue(
-        #     self, "FusionSubscriberQueue",
-        #     visibility_timeout=Duration.seconds(300),
-        # )
-
-        # Defines an AWS Lambda resource
-        my_lambda = _lambda.Function(
-            self, 'HelloHandler',
-            runtime=_lambda.Runtime.PYTHON_3_7,
-            code=_lambda.Code.from_asset('lambda'),
-            handler='hello.handler',
-        )
         
+        s3.CfnBucket( self, "fusion-bucket-1",bucket_name="fusion-bucket-1",
+                        access_control="Private", 
+                        bucket_encryption=s3.CfnBucket.BucketEncryptionProperty( 
+                            server_side_encryption_configuration=[ 
+                                s3.CfnBucket.ServerSideEncryptionRuleProperty( 
+                                    server_side_encryption_by_default=s3.CfnBucket.ServerSideEncryptionByDefaultProperty( 
+                                        sse_algorithm="AES256" ) ) ] ), 
+                        public_access_block_configuration=s3.BlockPublicAccess.BLOCK_ALL,
+                        tags= [{'key': 'environment', 'value': 'development'}],
+                        versioning_configuration=s3.CfnBucket.VersioningConfigurationProperty(status="Enabled"))
+
+
+                           
+    # #   tag = s3.Tag (
+    #                  key="fusion",
+    #                  value="project"
+    #                 )
+    
+   
+    
