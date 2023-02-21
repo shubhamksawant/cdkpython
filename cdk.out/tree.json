@@ -8,123 +8,79 @@
         "id": "FusionSubscriberStack",
         "path": "FusionSubscriberStack",
         "children": {
-          "HelloHandler": {
-            "id": "HelloHandler",
-            "path": "FusionSubscriberStack/HelloHandler",
-            "children": {
-              "ServiceRole": {
-                "id": "ServiceRole",
-                "path": "FusionSubscriberStack/HelloHandler/ServiceRole",
-                "children": {
-                  "ImportServiceRole": {
-                    "id": "ImportServiceRole",
-                    "path": "FusionSubscriberStack/HelloHandler/ServiceRole/ImportServiceRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.63.2"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "FusionSubscriberStack/HelloHandler/ServiceRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "lambda.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "managedPolicyArns": [
-                          {
-                            "Fn::Join": [
-                              "",
-                              [
-                                "arn:",
-                                {
-                                  "Ref": "AWS::Partition"
-                                },
-                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-                              ]
-                            ]
-                          }
-                        ]
+          "fusion-bucket-1": {
+            "id": "fusion-bucket-1",
+            "path": "FusionSubscriberStack/fusion-bucket-1",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+              "aws:cdk:cloudformation:props": {
+                "accessControl": "Private",
+                "bucketEncryption": {
+                  "serverSideEncryptionConfiguration": [
+                    {
+                      "serverSideEncryptionByDefault": {
+                        "sseAlgorithm": "AES256"
                       }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.63.2"
                     }
-                  }
+                  ]
                 },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.63.2"
-                }
-              },
-              "Code": {
-                "id": "Code",
-                "path": "FusionSubscriberStack/HelloHandler/Code",
-                "children": {
-                  "Stage": {
-                    "id": "Stage",
-                    "path": "FusionSubscriberStack/HelloHandler/Code/Stage",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.AssetStaging",
-                      "version": "2.63.2"
-                    }
-                  },
-                  "AssetBucket": {
-                    "id": "AssetBucket",
-                    "path": "FusionSubscriberStack/HelloHandler/Code/AssetBucket",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-                      "version": "2.63.2"
-                    }
-                  }
+                "bucketName": "fusion-bucket-2",
+                "publicAccessBlockConfiguration": {
+                  "blockPublicAcls": true,
+                  "blockPublicPolicy": true,
+                  "ignorePublicAcls": true,
+                  "restrictPublicBuckets": true
                 },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
-                  "version": "2.63.2"
-                }
-              },
-              "Resource": {
-                "id": "Resource",
-                "path": "FusionSubscriberStack/HelloHandler/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
-                  "aws:cdk:cloudformation:props": {
-                    "code": {
-                      "s3Bucket": {
-                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
-                      },
-                      "s3Key": "5f83e2a8bc7ca79afcc300d45df613dd32db40aa141b1ab5d88b910f3dbd995e.zip"
-                    },
-                    "role": {
-                      "Fn::GetAtt": [
-                        "HelloHandlerServiceRole11EF7C63",
-                        "Arn"
-                      ]
-                    },
-                    "handler": "hello.handler",
-                    "runtime": "python3.7"
+                "tags": [
+                  {
+                    "key": "environment",
+                    "value": "development"
                   }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                  "version": "2.63.2"
+                ],
+                "versioningConfiguration": {
+                  "status": "Enabled"
                 }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_lambda.Function",
+              "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+              "version": "2.63.2"
+            }
+          },
+          "MyCfnTable": {
+            "id": "MyCfnTable",
+            "path": "FusionSubscriberStack/MyCfnTable",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+              "aws:cdk:cloudformation:props": {
+                "keySchema": [
+                  {
+                    "attributeName": "ref_event_uid",
+                    "keyType": "HASH"
+                  }
+                ],
+                "attributeDefinitions": [
+                  {
+                    "attributeName": "ref_event_uid",
+                    "attributeType": "N"
+                  }
+                ],
+                "billingMode": "PAY_PER_REQUEST",
+                "sseSpecification": {
+                  "sseEnabled": true
+                },
+                "tableClass": "STANDARD",
+                "tableName": "fusiondynamodbtable",
+                "tags": [
+                  {
+                    "key": "environment",
+                    "value": "development"
+                  }
+                ]
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
               "version": "2.63.2"
             }
           },
