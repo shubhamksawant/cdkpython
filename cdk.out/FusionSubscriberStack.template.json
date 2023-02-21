@@ -66,10 +66,41 @@
     "aws:cdk:path": "FusionSubscriberStack/MyCfnTable"
    }
   },
+  "MyCfnDomain": {
+   "Type": "AWS::OpenSearchService::Domain",
+   "Properties": {
+    "ClusterConfig": {
+     "DedicatedMasterCount": 3,
+     "DedicatedMasterEnabled": true,
+     "DedicatedMasterType": "r6g.large.search",
+     "InstanceCount": 3,
+     "InstanceType": "r6g.large.search",
+     "ZoneAwarenessEnabled": false
+    },
+    "DomainName": "fusion1",
+    "EBSOptions": {
+     "EBSEnabled": true,
+     "Iops": 3000,
+     "Throughput": 125,
+     "VolumeSize": 50,
+     "VolumeType": "gp3"
+    },
+    "EngineVersion": "OpenSearch_1.1",
+    "Tags": [
+     {
+      "Key": "environment",
+      "Value": "development"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FusionSubscriberStack/MyCfnDomain"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWIWwqDMBAAz+J/sm0N9AD1AsX6X/LY0m10F0xCEfHuRoSBGaaFu4G2sf+kfYh6JAfrK1sfVV3vNRnoPvwoPmJWYWE7SXDHGqwbcVO1ekxSZo9Hd8KBMglv6rnkr/DFwO1aaX6JSM+FM00I/ekdfA+iinwAAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWJWwrCMBBF19L/JGoDLsC6AKn+Sx4jHdPOSB5KKe7dBOHCPZzTq6NWfWc+STof5IxWbddsXBBV3bek1fCgU3EBsvArmYW9bepm7AyCX0AJTHRTgvhGBy2deTFIX1FxhMQlOmg8MHnMyLVc1jwx7bQ67Ou6Z0KUsVDGBdT4/x/u51KHmAAAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "FusionSubscriberStack/CDKMetadata/Default"

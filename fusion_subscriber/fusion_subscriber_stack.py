@@ -35,6 +35,7 @@ from aws_cdk import (
     aws_sqs as sqs,
     aws_s3 as s3,
     aws_dynamodb as dynamodb,
+    aws_opensearchservice as opensearchservice,
     # core
 )
 from constructs import Construct
@@ -85,3 +86,35 @@ class FusionSubscriberStack(Stack):
             tags= [{'key': 'environment', 'value': 'development'}],              
             
             )
+        
+
+        opensearchservice.CfnDomain(self, "MyCfnDomain",
+                 domain_name="fusion1",
+                 engine_version="OpenSearch_1.1",
+                 cluster_config=opensearchservice.CfnDomain.ClusterConfigProperty(
+                     dedicated_master_count=3,
+                     dedicated_master_enabled=True,
+                     dedicated_master_type="r6g.large.search",
+                     instance_count=3,
+                     instance_type="r6g.large.search",
+                    #  warm_count=3,
+                    #  warm_enabled=False,
+                    #  warm_type="r6g.large.search",
+                    #  zone_awareness_config=opensearchservice.CfnDomain.ZoneAwarenessConfigProperty(
+                    #     availability_zone_count=3
+                    #  ),
+                     zone_awareness_enabled=False
+                ),
+                ebs_options=opensearchservice.CfnDomain.EBSOptionsProperty(
+                     ebs_enabled=True,
+                     iops=3000,
+                     throughput=125,
+                     volume_size=50,
+                     volume_type="gp3"
+                ),
+                tags= [{'key': 'environment', 'value': 'development'}],
+
+            ) 
+
+                    
+
