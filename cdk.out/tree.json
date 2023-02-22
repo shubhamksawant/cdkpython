@@ -120,6 +120,64 @@
               "version": "2.63.2"
             }
           },
+          "MyCfnApplication": {
+            "id": "MyCfnApplication",
+            "path": "FusionSubscriberStack/MyCfnApplication",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EMRServerless::Application",
+              "aws:cdk:cloudformation:props": {
+                "releaseLabel": "emr-6.9.0",
+                "type": "Spark",
+                "autoStartConfiguration": {
+                  "enabled": true
+                },
+                "autoStopConfiguration": {
+                  "enabled": true,
+                  "idleTimeoutMinutes": 100
+                },
+                "initialCapacity": [
+                  {
+                    "key": "Executor",
+                    "value": {
+                      "workerConfiguration": {
+                        "cpu": "4 vCPU",
+                        "memory": "16 GB",
+                        "disk": "20 GB"
+                      },
+                      "workerCount": 3
+                    }
+                  },
+                  {
+                    "key": "Driver",
+                    "value": {
+                      "workerConfiguration": {
+                        "cpu": "4 vCPU",
+                        "memory": "16 GB",
+                        "disk": "20 GB"
+                      },
+                      "workerCount": 1
+                    }
+                  }
+                ],
+                "maximumCapacity": {
+                  "cpu": "400 vCPU",
+                  "memory": "3000 GB",
+                  "disk": "20000 GB"
+                },
+                "name": "fusion-subscriber",
+                "tags": [
+                  {
+                    "key": "environment",
+                    "value": "development"
+                  }
+                ]
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_emrserverless.CfnApplication",
+              "version": "2.63.2"
+            }
+          },
           "CDKMetadata": {
             "id": "CDKMetadata",
             "path": "FusionSubscriberStack/CDKMetadata",

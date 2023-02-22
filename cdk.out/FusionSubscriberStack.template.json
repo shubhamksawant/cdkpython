@@ -97,10 +97,63 @@
     "aws:cdk:path": "FusionSubscriberStack/MyCfnDomain"
    }
   },
+  "MyCfnApplication": {
+   "Type": "AWS::EMRServerless::Application",
+   "Properties": {
+    "ReleaseLabel": "emr-6.9.0",
+    "Type": "Spark",
+    "AutoStartConfiguration": {
+     "Enabled": true
+    },
+    "AutoStopConfiguration": {
+     "Enabled": true,
+     "IdleTimeoutMinutes": 100
+    },
+    "InitialCapacity": [
+     {
+      "Key": "Executor",
+      "Value": {
+       "WorkerConfiguration": {
+        "Cpu": "4 vCPU",
+        "Disk": "20 GB",
+        "Memory": "16 GB"
+       },
+       "WorkerCount": 3
+      }
+     },
+     {
+      "Key": "Driver",
+      "Value": {
+       "WorkerConfiguration": {
+        "Cpu": "4 vCPU",
+        "Disk": "20 GB",
+        "Memory": "16 GB"
+       },
+       "WorkerCount": 1
+      }
+     }
+    ],
+    "MaximumCapacity": {
+     "Cpu": "400 vCPU",
+     "Disk": "20000 GB",
+     "Memory": "3000 GB"
+    },
+    "Name": "fusion-subscriber",
+    "Tags": [
+     {
+      "Key": "environment",
+      "Value": "development"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FusionSubscriberStack/MyCfnApplication"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWJWwrCMBBF19L/JGoDLsC6AKn+Sx4jHdPOSB5KKe7dBOHCPZzTq6NWfWc+STof5IxWbddsXBBV3bek1fCgU3EBsvArmYW9bepm7AyCX0AJTHRTgvhGBy2deTFIX1FxhMQlOmg8MHnMyLVc1jwx7bQ67Ou6Z0KUsVDGBdT4/x/u51KHmAAAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWJwQ6CMBBEv4V7qQqJd8UPMODdLO0aVtot6RYNIf67NCSTzMx7lT7XuirgK6WxY+mo12uXwIxqQ89Vat28+DqbEZOyC4MPts/oAb1DFSZkQYhmEIwfMpjVLXggVuhjhhgdimR+mSZHBhIF/qnttyhhjgbzbgJb2s19SUPgQ61Pxy3FW4jKOHMij7rd+w/TpmiNtQAAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "FusionSubscriberStack/CDKMetadata/Default"

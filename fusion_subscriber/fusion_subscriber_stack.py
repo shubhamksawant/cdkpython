@@ -36,6 +36,7 @@ from aws_cdk import (
     aws_s3 as s3,
     aws_dynamodb as dynamodb,
     aws_opensearchservice as opensearchservice,
+    aws_emrserverless as emrserverless
     # core
 )
 from constructs import Construct
@@ -60,7 +61,7 @@ class FusionSubscriberStack(Stack):
 
         dynamodb.CfnTable( self, "MyCfnTable", 
             key_schema=[dynamodb.CfnTable.KeySchemaProperty( 
-                      attribute_name="ref_event_uid", 
+                      attribute_name="AlertId", 
                       #hash -- partition key - RANGE - sort key
                       key_type="HASH"
             )],
@@ -68,8 +69,8 @@ class FusionSubscriberStack(Stack):
                 # the properties below are optional
             attribute_definitions=[dynamodb.CfnTable.AttributeDefinitionProperty(
             # The data type for the attribute, where:. - S - the attribute is of type String - N - the attribute is of type Number - B - the attribute is of type Binary
-                attribute_name="ref_event_uid",
-                attribute_type="N"
+                attribute_name="AlertId",
+                attribute_type="S"
             )],
             billing_mode="PAY_PER_REQUEST",
             # Valid values include: - PROVISIONED - We recommend using PROVISIONED for predictable workloads. PROVISIONED sets the billing mode to Provisioned Mode . - PAY_PER_REQUEST - We recommend using PAY_PER_REQUEST for unpredictable workloads. PAY_PER_REQUEST sets the billing mode to On-Demand Mode . If not specified, the default is PROVISIONED 
@@ -114,7 +115,57 @@ class FusionSubscriberStack(Stack):
                 ),
                 tags= [{'key': 'environment', 'value': 'development'}],
 
-            ) 
+            )
+            
 
-                    
+        emrserverless.CfnApplication(self, "MyCfnApplication",
+                release_label="emr-6.9.0",
+                name="fusion-subscriber",
+                type="Spark",
+                auto_start_configuration=emrserverless.CfnApplication.AutoStartConfigurationProperty(
+                        enabled=True
+                    ),
+                auto_stop_configuration=emrserverless.CfnApplication.AutoStopConfigurationProperty(
+                        enabled=True,
+                        idle_timeout_minutes=100
+                    ),
+                initial_capacity=[emrserverless.CfnApplication.InitialCapacityConfigKeyValuePairProperty(
+                    key="Executor",
+                    value=emrserverless.CfnApplication.InitialCapacityConfigProperty(
+                        worker_configuration=emrserverless.CfnApplication.WorkerConfigurationProperty(
+                            cpu="4 vCPU",
+                            memory="16 GB",
+                            disk="20 GB"
+                        ),
+                        worker_count=3
+                    )
+                 ),
+                 emrserverless.CfnApplication.InitialCapacityConfigKeyValuePairProperty(
+                    key="Driver",
+                    value=emrserverless.CfnApplication.InitialCapacityConfigProperty(
+                        worker_configuration=emrserverless.CfnApplication.WorkerConfigurationProperty(
+                            cpu="4 vCPU",
+                            memory="16 GB",
+                            disk="20 GB"
+                        ),
+                        worker_count=1
+                    )
+                 )],
+                 
+                 
+                maximum_capacity=emrserverless.CfnApplication.MaximumAllowedResourcesProperty(
+                        cpu="400 vCPU",
+                        memory="3000 GB",
+
+                        # the properties below are optional
+                        disk="20000 GB"
+                    ),
+
+
+                 tags= [{'key': 'environment', 'value': 'development'}],      
+                
+
+            )
+
+
 

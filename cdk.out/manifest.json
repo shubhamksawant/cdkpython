@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a7198059ecfe43b72ed31f406e7c632cc4ea23150a159f9932ec5ecf7a79f3c8.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/2b074fc8423e4d17e5ed409f9b1373b43242e89100ef052387bbc3e078341ad7.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -49,6 +49,12 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "MyCfnDomain"
+          }
+        ],
+        "/FusionSubscriberStack/MyCfnApplication": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MyCfnApplication"
           }
         ],
         "/FusionSubscriberStack/CDKMetadata/Default": [
