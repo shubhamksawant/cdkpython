@@ -8,115 +8,1487 @@
         "id": "FusionSubscriberStack",
         "path": "FusionSubscriberStack",
         "children": {
-          "fusion-bucket-1": {
-            "id": "fusion-bucket-1",
-            "path": "FusionSubscriberStack/fusion-bucket-1",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
-              "aws:cdk:cloudformation:props": {
-                "accessControl": "Private",
-                "bucketEncryption": {
-                  "serverSideEncryptionConfiguration": [
-                    {
-                      "serverSideEncryptionByDefault": {
-                        "sseAlgorithm": "AES256"
+          "EMRServerlessDemo": {
+            "id": "EMRServerlessDemo",
+            "path": "FusionSubscriberStack/EMRServerlessDemo",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/EMRServerlessDemo/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.0.0/16",
+                    "enableDnsHostnames": true,
+                    "enableDnsSupport": true,
+                    "instanceTenancy": "default",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "FusionSubscriberStack/EMRServerlessDemo"
                       }
-                    }
-                  ]
-                },
-                "bucketName": "fusion-bucket-2",
-                "publicAccessBlockConfiguration": {
-                  "blockPublicAcls": true,
-                  "blockPublicPolicy": true,
-                  "ignorePublicAcls": true,
-                  "restrictPublicBuckets": true
-                },
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
+                    ]
                   }
-                ],
-                "versioningConfiguration": {
-                  "status": "Enabled"
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnVPC",
+                  "version": "2.63.2"
+                }
+              },
+              "PublicSubnet1": {
+                "id": "PublicSubnet1",
+                "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "EMRServerlessDemo803D82EC"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            0,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "cidrBlock": "10.0.0.0/18",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "EMRServerlessDemo803D82EC"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet1RouteTable16469989"
+                        },
+                        "subnetId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet1Subnet11F37395"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet1RouteTable16469989"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "EMRServerlessDemoIGW12C0B724"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "EIP": {
+                    "id": "EIP",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/EIP",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                      "aws:cdk:cloudformation:props": {
+                        "domain": "vpc",
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnEIP",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "NATGateway": {
+                    "id": "NATGateway",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/NATGateway",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                      "aws:cdk:cloudformation:props": {
+                        "subnetId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet1Subnet11F37395"
+                        },
+                        "allocationId": {
+                          "Fn::GetAtt": [
+                            "EMRServerlessDemoPublicSubnet1EIP4D028A37",
+                            "AllocationId"
+                          ]
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnNatGateway",
+                      "version": "2.63.2"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.63.2"
+                }
+              },
+              "PublicSubnet2": {
+                "id": "PublicSubnet2",
+                "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "EMRServerlessDemo803D82EC"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            1,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "cidrBlock": "10.0.64.0/18",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "EMRServerlessDemo803D82EC"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet2RouteTable30652C3F"
+                        },
+                        "subnetId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet2Subnet748D1824"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet2RouteTable30652C3F"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "EMRServerlessDemoIGW12C0B724"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "EIP": {
+                    "id": "EIP",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/EIP",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                      "aws:cdk:cloudformation:props": {
+                        "domain": "vpc",
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnEIP",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "NATGateway": {
+                    "id": "NATGateway",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/NATGateway",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                      "aws:cdk:cloudformation:props": {
+                        "subnetId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet2Subnet748D1824"
+                        },
+                        "allocationId": {
+                          "Fn::GetAtt": [
+                            "EMRServerlessDemoPublicSubnet2EIPCF16CA06",
+                            "AllocationId"
+                          ]
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnNatGateway",
+                      "version": "2.63.2"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.63.2"
+                }
+              },
+              "PrivateSubnet1": {
+                "id": "PrivateSubnet1",
+                "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "EMRServerlessDemo803D82EC"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            0,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "cidrBlock": "10.0.128.0/18",
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "EMRServerlessDemo803D82EC"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "EMRServerlessDemoPrivateSubnet1RouteTable78D70E70"
+                        },
+                        "subnetId": {
+                          "Ref": "EMRServerlessDemoPrivateSubnet1SubnetCAD4501D"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "EMRServerlessDemoPrivateSubnet1RouteTable78D70E70"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "natGatewayId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet1NATGateway3D5605EA"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.63.2"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PrivateSubnet",
+                  "version": "2.63.2"
+                }
+              },
+              "PrivateSubnet2": {
+                "id": "PrivateSubnet2",
+                "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "EMRServerlessDemo803D82EC"
+                        },
+                        "availabilityZone": {
+                          "Fn::Select": [
+                            1,
+                            {
+                              "Fn::GetAZs": ""
+                            }
+                          ]
+                        },
+                        "cidrBlock": "10.0.192.0/18",
+                        "mapPublicIpOnLaunch": false,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Private"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "EMRServerlessDemo803D82EC"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "EMRServerlessDemoPrivateSubnet2RouteTableC4978828"
+                        },
+                        "subnetId": {
+                          "Ref": "EMRServerlessDemoPrivateSubnet2SubnetAA8992FA"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "EMRServerlessDemoPrivateSubnet2RouteTableC4978828"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "natGatewayId": {
+                          "Ref": "EMRServerlessDemoPublicSubnet2NATGateway2513DE31"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.63.2"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PrivateSubnet",
+                  "version": "2.63.2"
+                }
+              },
+              "IGW": {
+                "id": "IGW",
+                "path": "FusionSubscriberStack/EMRServerlessDemo/IGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "FusionSubscriberStack/EMRServerlessDemo"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnInternetGateway",
+                  "version": "2.63.2"
+                }
+              },
+              "VPCGW": {
+                "id": "VPCGW",
+                "path": "FusionSubscriberStack/EMRServerlessDemo/VPCGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "EMRServerlessDemo803D82EC"
+                    },
+                    "internetGatewayId": {
+                      "Ref": "EMRServerlessDemoIGW12C0B724"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnVPCGatewayAttachment",
+                  "version": "2.63.2"
                 }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+              "fqn": "aws-cdk-lib.aws_ec2.Vpc",
               "version": "2.63.2"
             }
           },
-          "MyCfnTable": {
-            "id": "MyCfnTable",
-            "path": "FusionSubscriberStack/MyCfnTable",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
-              "aws:cdk:cloudformation:props": {
-                "keySchema": [
-                  {
-                    "attributeName": "ref_event_uid",
-                    "keyType": "HASH"
+          "EMRStudioEngine": {
+            "id": "EMRStudioEngine",
+            "path": "FusionSubscriberStack/EMRStudioEngine",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/EMRStudioEngine/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "FusionSubscriberStack/EMRStudioEngine",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "key": "for-use-with-amazon-emr-managed-policies",
+                        "value": "true"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "EMRServerlessDemo803D82EC"
+                    }
                   }
-                ],
-                "attributeDefinitions": [
-                  {
-                    "attributeName": "ref_event_uid",
-                    "attributeType": "N"
-                  }
-                ],
-                "billingMode": "PAY_PER_REQUEST",
-                "sseSpecification": {
-                  "sseEnabled": true
                 },
-                "tableClass": "STANDARD",
-                "tableName": "fusiondynamodbtable",
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.63.2"
+                }
+              },
+              "from FusionSubscriberStackEMRWorkspaceEngine8911BDD2:18888": {
+                "id": "from FusionSubscriberStackEMRWorkspaceEngine8911BDD2:18888",
+                "path": "FusionSubscriberStack/EMRStudioEngine/from FusionSubscriberStackEMRWorkspaceEngine8911BDD2:18888",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupIngress",
+                  "aws:cdk:cloudformation:props": {
+                    "ipProtocol": "tcp",
+                    "description": "Allow inbound traffic to EngineSecurityGroup ( from notebook to cluster for port 18888 )",
+                    "fromPort": 18888,
+                    "groupId": {
+                      "Fn::GetAtt": [
+                        "EMRStudioEngineA7CF8D6B",
+                        "GroupId"
+                      ]
+                    },
+                    "sourceSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "EMRWorkspaceEngine36D73247",
+                        "GroupId"
+                      ]
+                    },
+                    "toPort": 18888
                   }
-                ]
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupIngress",
+                  "version": "2.63.2"
+                }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
               "version": "2.63.2"
             }
           },
-          "MyCfnDomain": {
-            "id": "MyCfnDomain",
-            "path": "FusionSubscriberStack/MyCfnDomain",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::OpenSearchService::Domain",
-              "aws:cdk:cloudformation:props": {
-                "clusterConfig": {
-                  "dedicatedMasterCount": 3,
-                  "dedicatedMasterEnabled": true,
-                  "dedicatedMasterType": "r6g.large.search",
-                  "instanceCount": 3,
-                  "instanceType": "r6g.large.search",
-                  "zoneAwarenessEnabled": false
-                },
-                "domainName": "fusion1",
-                "ebsOptions": {
-                  "ebsEnabled": true,
-                  "iops": 3000,
-                  "throughput": 125,
-                  "volumeSize": 50,
-                  "volumeType": "gp3"
-                },
-                "engineVersion": "OpenSearch_1.1",
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
+          "EMRStudioServiceRolePolicy": {
+            "id": "EMRStudioServiceRolePolicy",
+            "path": "FusionSubscriberStack/EMRStudioServiceRolePolicy",
+            "children": {
+              "ImportedEMRStudioServiceRolePolicy": {
+                "id": "ImportedEMRStudioServiceRolePolicy",
+                "path": "FusionSubscriberStack/EMRStudioServiceRolePolicy/ImportedEMRStudioServiceRolePolicy",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.63.2"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/EMRStudioServiceRolePolicy/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::ManagedPolicy",
+                  "aws:cdk:cloudformation:props": {
+                    "policyDocument": {
+                      "Statement": [
+                        {
+                          "Action": [
+                            "elasticmapreduce:DescribeCluster",
+                            "elasticmapreduce:ListInstances",
+                            "elasticmapreduce:ListSteps"
+                          ],
+                          "Effect": "Allow",
+                          "Resource": "*",
+                          "Sid": "AllowEMRReadOnlyActions"
+                        },
+                        {
+                          "Action": [
+                            "ec2:CreateNetworkInterfacePermission",
+                            "ec2:DeleteNetworkInterface"
+                          ],
+                          "Condition": {
+                            "StringEquals": {
+                              "aws:ResourceTag/for-use-with-amazon-emr-managed-policies": "true"
+                            }
+                          },
+                          "Effect": "Allow",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":ec2:",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                ":",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                ":network-interface/*"
+                              ]
+                            ]
+                          },
+                          "Sid": "AllowEC2ENIActionsWithEMRTags"
+                        },
+                        {
+                          "Action": "ec2:ModifyNetworkInterfaceAttribute",
+                          "Effect": "Allow",
+                          "Resource": [
+                            {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ec2:",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "AWS::AccountId"
+                                  },
+                                  ":instance/*"
+                                ]
+                              ]
+                            },
+                            {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ec2:",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "AWS::AccountId"
+                                  },
+                                  ":network-interface/*"
+                                ]
+                              ]
+                            },
+                            {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ec2:",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "AWS::AccountId"
+                                  },
+                                  ":security-group/*"
+                                ]
+                              ]
+                            }
+                          ],
+                          "Sid": "AllowEC2ENIAttributeAction"
+                        },
+                        {
+                          "Action": [
+                            "ec2:AuthorizeSecurityGroupEgress",
+                            "ec2:AuthorizeSecurityGroupIngress",
+                            "ec2:DeleteNetworkInterfacePermission",
+                            "ec2:RevokeSecurityGroupEgress",
+                            "ec2:RevokeSecurityGroupIngress"
+                          ],
+                          "Condition": {
+                            "StringEquals": {
+                              "aws:ResourceTag/for-use-with-amazon-emr-managed-policies": "true"
+                            }
+                          },
+                          "Effect": "Allow",
+                          "Resource": "*",
+                          "Sid": "AllowEC2SecurityGroupActionsWithEMRTags"
+                        },
+                        {
+                          "Action": "ec2:CreateSecurityGroup",
+                          "Condition": {
+                            "StringEquals": {
+                              "aws:RequestTag/for-use-with-amazon-emr-managed-policies": "true"
+                            }
+                          },
+                          "Effect": "Allow",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":ec2:",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                ":",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                ":security-group/*"
+                              ]
+                            ]
+                          },
+                          "Sid": "AllowDefaultEC2SecurityGroupsCreationWithEMRTags"
+                        },
+                        {
+                          "Action": "ec2:CreateSecurityGroup",
+                          "Condition": {
+                            "StringEquals": {
+                              "aws:ResourceTag/for-use-with-amazon-emr-managed-policies": "true"
+                            }
+                          },
+                          "Effect": "Allow",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":ec2:",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                ":",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                ":vpc/*"
+                              ]
+                            ]
+                          },
+                          "Sid": "AllowDefaultEC2SecurityGroupsCreationInVPCWithEMRTags"
+                        },
+                        {
+                          "Action": "ec2:CreateTags",
+                          "Condition": {
+                            "StringEquals": {
+                              "aws:RequestTag/for-use-with-amazon-emr-managed-policies": "true",
+                              "ec2:CreateAction": "CreateSecurityGroup"
+                            }
+                          },
+                          "Effect": "Allow",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":ec2:",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                ":",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                ":security-group/*"
+                              ]
+                            ]
+                          },
+                          "Sid": "AllowAddingEMRTagsDuringDefaultSecurityGroupCreation"
+                        },
+                        {
+                          "Action": "ec2:CreateNetworkInterface",
+                          "Condition": {
+                            "StringEquals": {
+                              "aws:RequestTag/for-use-with-amazon-emr-managed-policies": "true"
+                            }
+                          },
+                          "Effect": "Allow",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":ec2:",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                ":",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                ":network-interface/*"
+                              ]
+                            ]
+                          },
+                          "Sid": "AllowEC2ENICreationWithEMRTags"
+                        },
+                        {
+                          "Action": "ec2:CreateNetworkInterface",
+                          "Condition": {
+                            "StringEquals": {
+                              "aws:ResourceTag/for-use-with-amazon-emr-managed-policies": "true"
+                            }
+                          },
+                          "Effect": "Allow",
+                          "Resource": [
+                            {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ec2:",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "AWS::AccountId"
+                                  },
+                                  ":security-group/*"
+                                ]
+                              ]
+                            },
+                            {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":ec2:",
+                                  {
+                                    "Ref": "AWS::Region"
+                                  },
+                                  ":",
+                                  {
+                                    "Ref": "AWS::AccountId"
+                                  },
+                                  ":subnet/*"
+                                ]
+                              ]
+                            }
+                          ],
+                          "Sid": "AllowEC2ENICreationInSubnetAndSecurityGroupWithEMRTags"
+                        },
+                        {
+                          "Action": "ec2:CreateTags",
+                          "Condition": {
+                            "StringEquals": {
+                              "ec2:CreateAction": "CreateNetworkInterface"
+                            }
+                          },
+                          "Effect": "Allow",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":ec2:",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                ":",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                ":network-interface/*"
+                              ]
+                            ]
+                          },
+                          "Sid": "AllowAddingTagsDuringEC2ENICreation"
+                        },
+                        {
+                          "Action": [
+                            "ec2:DescribeInstances",
+                            "ec2:DescribeNetworkInterfaces",
+                            "ec2:DescribeSecurityGroups",
+                            "ec2:DescribeSubnets",
+                            "ec2:DescribeTags",
+                            "ec2:DescribeVpcs"
+                          ],
+                          "Effect": "Allow",
+                          "Resource": "*",
+                          "Sid": "AllowEC2ReadOnlyActions"
+                        },
+                        {
+                          "Action": "secretsmanager:GetSecretValue",
+                          "Condition": {
+                            "StringEquals": {
+                              "aws:ResourceTag/for-use-with-amazon-emr-managed-policies": "true"
+                            }
+                          },
+                          "Effect": "Allow",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":secretsmanager:",
+                                {
+                                  "Ref": "AWS::Region"
+                                },
+                                ":",
+                                {
+                                  "Ref": "AWS::AccountId"
+                                },
+                                ":secret/*"
+                              ]
+                            ]
+                          },
+                          "Sid": "AllowSecretsManagerReadOnlyActionsWithEMRTags"
+                        },
+                        {
+                          "Action": [
+                            "s3:DeleteObject",
+                            "s3:GetEncryptionConfiguration",
+                            "s3:GetObject",
+                            "s3:ListBucket",
+                            "s3:PutObject"
+                          ],
+                          "Effect": "Allow",
+                          "Resource": "arn:aws:s3:::*",
+                          "Sid": "S3permission"
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "description": "",
+                    "path": "/"
                   }
-                ]
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnManagedPolicy",
+                  "version": "2.63.2"
+                }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_opensearchservice.CfnDomain",
+              "fqn": "aws-cdk-lib.aws_iam.ManagedPolicy",
+              "version": "2.63.2"
+            }
+          },
+          "EMRStudioServiceRole": {
+            "id": "EMRStudioServiceRole",
+            "path": "FusionSubscriberStack/EMRStudioServiceRole",
+            "children": {
+              "ImportEMRStudioServiceRole": {
+                "id": "ImportEMRStudioServiceRole",
+                "path": "FusionSubscriberStack/EMRStudioServiceRole/ImportEMRStudioServiceRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.63.2"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/EMRStudioServiceRole/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "elasticmapreduce.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Ref": "EMRStudioServiceRolePolicy7582CE4A"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.63.2"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.63.2"
+            }
+          },
+          "bucket": {
+            "id": "bucket",
+            "path": "FusionSubscriberStack/bucket",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/bucket/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "publicAccessBlockConfiguration": {
+                      "blockPublicAcls": true,
+                      "blockPublicPolicy": true,
+                      "ignorePublicAcls": true,
+                      "restrictPublicBuckets": true
+                    },
+                    "tags": [
+                      {
+                        "key": "aws-cdk:auto-delete-objects",
+                        "value": "true"
+                      }
+                    ],
+                    "versioningConfiguration": {
+                      "status": "Enabled"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.63.2"
+                }
+              },
+              "Policy": {
+                "id": "Policy",
+                "path": "FusionSubscriberStack/bucket/Policy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "FusionSubscriberStack/bucket/Policy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "bucket": {
+                          "Ref": "bucket43879C71"
+                        },
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "s3:DeleteObject*",
+                                "s3:GetBucket*",
+                                "s3:List*"
+                              ],
+                              "Effect": "Allow",
+                              "Principal": {
+                                "AWS": {
+                                  "Fn::GetAtt": [
+                                    "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                                    "Arn"
+                                  ]
+                                }
+                              },
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "bucket43879C71",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "bucket43879C71",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                      "version": "2.63.2"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                  "version": "2.63.2"
+                }
+              },
+              "AutoDeleteObjectsCustomResource": {
+                "id": "AutoDeleteObjectsCustomResource",
+                "path": "FusionSubscriberStack/bucket/AutoDeleteObjectsCustomResource",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "FusionSubscriberStack/bucket/AutoDeleteObjectsCustomResource/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.63.2"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CustomResource",
+                  "version": "2.63.2"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
+              "version": "2.63.2"
+            }
+          },
+          "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
+            "id": "Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "path": "FusionSubscriberStack/Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "FusionSubscriberStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.AssetStaging",
+                  "version": "2.63.2"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "FusionSubscriberStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.63.2"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "FusionSubscriberStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.63.2"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CustomResourceProvider",
+              "version": "2.63.2"
+            }
+          },
+          "EMRWorkspaceEngine": {
+            "id": "EMRWorkspaceEngine",
+            "path": "FusionSubscriberStack/EMRWorkspaceEngine",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/EMRWorkspaceEngine/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "FusionSubscriberStack/EMRWorkspaceEngine",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 443,
+                        "toPort": 443,
+                        "description": "Required for outbound git access"
+                      }
+                    ],
+                    "tags": [
+                      {
+                        "key": "for-use-with-amazon-emr-managed-policies",
+                        "value": "true"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "EMRServerlessDemo803D82EC"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.63.2"
+                }
+              },
+              "to FusionSubscriberStackEMRStudioEngine4DE9D83E:18888": {
+                "id": "to FusionSubscriberStackEMRStudioEngine4DE9D83E:18888",
+                "path": "FusionSubscriberStack/EMRWorkspaceEngine/to FusionSubscriberStackEMRStudioEngine4DE9D83E:18888",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
+                  "aws:cdk:cloudformation:props": {
+                    "groupId": {
+                      "Fn::GetAtt": [
+                        "EMRWorkspaceEngine36D73247",
+                        "GroupId"
+                      ]
+                    },
+                    "ipProtocol": "tcp",
+                    "description": "Allow outbound traffic from WorkspaceSecurityGroup ( from notebook to cluster for port 18888 )",
+                    "destinationSecurityGroupId": {
+                      "Fn::GetAtt": [
+                        "EMRStudioEngineA7CF8D6B",
+                        "GroupId"
+                      ]
+                    },
+                    "fromPort": 18888,
+                    "toPort": 18888
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroupEgress",
+                  "version": "2.63.2"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.63.2"
+            }
+          },
+          "FusionSubscriberStack": {
+            "id": "FusionSubscriberStack",
+            "path": "FusionSubscriberStack/FusionSubscriberStack",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EMR::Studio",
+              "aws:cdk:cloudformation:props": {
+                "authMode": "IAM",
+                "defaultS3Location": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "s3://",
+                      {
+                        "Ref": "bucket43879C71"
+                      }
+                    ]
+                  ]
+                },
+                "engineSecurityGroupId": {
+                  "Fn::GetAtt": [
+                    "EMRStudioEngineA7CF8D6B",
+                    "GroupId"
+                  ]
+                },
+                "name": "name",
+                "serviceRole": {
+                  "Fn::GetAtt": [
+                    "EMRStudioServiceRoleAAFF2152",
+                    "Arn"
+                  ]
+                },
+                "subnetIds": [
+                  {
+                    "Ref": "EMRServerlessDemoPrivateSubnet1SubnetCAD4501D"
+                  },
+                  {
+                    "Ref": "EMRServerlessDemoPrivateSubnet2SubnetAA8992FA"
+                  }
+                ],
+                "vpcId": {
+                  "Ref": "EMRServerlessDemo803D82EC"
+                },
+                "workspaceSecurityGroupId": {
+                  "Fn::GetAtt": [
+                    "EMRWorkspaceEngine36D73247",
+                    "GroupId"
+                  ]
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_emr.CfnStudio",
+              "version": "2.63.2"
+            }
+          },
+          "EMRStudioURL": {
+            "id": "EMRStudioURL",
+            "path": "FusionSubscriberStack/EMRStudioURL",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.63.2"
+            }
+          },
+          "EMRStudioServerlessURL": {
+            "id": "EMRStudioServerlessURL",
+            "path": "FusionSubscriberStack/EMRStudioServerlessURL",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.63.2"
             }
           },

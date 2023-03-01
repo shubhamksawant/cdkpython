@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/2b074fc8423e4d17e5ed409f9b1373b43242e89100ef052387bbc3e078341ad7.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a858847b544484ffbc03db4a723e816cc7d563a93e198062acd9d4202938d18c.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -33,22 +33,226 @@
         "FusionSubscriberStack.assets"
       ],
       "metadata": {
-        "/FusionSubscriberStack/fusion-bucket-1": [
+        "/FusionSubscriberStack/EMRServerlessDemo/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "fusionbucket1"
+            "data": "EMRServerlessDemo803D82EC"
           }
         ],
-        "/FusionSubscriberStack/MyCfnTable": [
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/Subnet": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "MyCfnTable"
+            "data": "EMRServerlessDemoPublicSubnet1Subnet11F37395"
           }
         ],
-        "/FusionSubscriberStack/MyCfnDomain": [
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/RouteTable": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "MyCfnDomain"
+            "data": "EMRServerlessDemoPublicSubnet1RouteTable16469989"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet1RouteTableAssociation212EEAC4"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet1DefaultRoute9951CE60"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet1EIP4D028A37"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet1/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet1NATGateway3D5605EA"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet2Subnet748D1824"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet2RouteTable30652C3F"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet2RouteTableAssociation5F2ECD57"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet2DefaultRouteBCDFB1C8"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/EIP": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet2EIPCF16CA06"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PublicSubnet2/NATGateway": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPublicSubnet2NATGateway2513DE31"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPrivateSubnet1SubnetCAD4501D"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPrivateSubnet1RouteTable78D70E70"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPrivateSubnet1RouteTableAssociationF33621F1"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPrivateSubnet1DefaultRoute32C54E9E"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPrivateSubnet2SubnetAA8992FA"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPrivateSubnet2RouteTableC4978828"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPrivateSubnet2RouteTableAssociation7BE09808"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/PrivateSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoPrivateSubnet2DefaultRouteAAB53E6B"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoIGW12C0B724"
+          }
+        ],
+        "/FusionSubscriberStack/EMRServerlessDemo/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRServerlessDemoVPCGWFFD8FE9D"
+          }
+        ],
+        "/FusionSubscriberStack/EMRStudioEngine/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRStudioEngineA7CF8D6B"
+          }
+        ],
+        "/FusionSubscriberStack/EMRStudioEngine/from FusionSubscriberStackEMRWorkspaceEngine8911BDD2:18888": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRStudioEnginefromFusionSubscriberStackEMRWorkspaceEngine8911BDD218888C98E59D6"
+          }
+        ],
+        "/FusionSubscriberStack/EMRStudioServiceRolePolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRStudioServiceRolePolicy7582CE4A"
+          }
+        ],
+        "/FusionSubscriberStack/EMRStudioServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRStudioServiceRoleAAFF2152"
+          }
+        ],
+        "/FusionSubscriberStack/bucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "bucket43879C71"
+          }
+        ],
+        "/FusionSubscriberStack/bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "bucketPolicy638F945D"
+          }
+        ],
+        "/FusionSubscriberStack/bucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "bucketAutoDeleteObjectsCustomResource3F4990B2"
+          }
+        ],
+        "/FusionSubscriberStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/FusionSubscriberStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
+          }
+        ],
+        "/FusionSubscriberStack/EMRWorkspaceEngine/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRWorkspaceEngine36D73247"
+          }
+        ],
+        "/FusionSubscriberStack/EMRWorkspaceEngine/to FusionSubscriberStackEMRStudioEngine4DE9D83E:18888": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRWorkspaceEnginetoFusionSubscriberStackEMRStudioEngine4DE9D83E18888142A0689"
+          }
+        ],
+        "/FusionSubscriberStack/FusionSubscriberStack": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "FusionSubscriberStack"
+          }
+        ],
+        "/FusionSubscriberStack/EMRStudioURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRStudioURL"
+          }
+        ],
+        "/FusionSubscriberStack/EMRStudioServerlessURL": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "EMRStudioServerlessURL"
           }
         ],
         "/FusionSubscriberStack/MyCfnApplication": [
