@@ -8,115 +8,52 @@
         "id": "FusionSubscriberStack",
         "path": "FusionSubscriberStack",
         "children": {
-          "fusion-bucket-1": {
-            "id": "fusion-bucket-1",
-            "path": "FusionSubscriberStack/fusion-bucket-1",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
-              "aws:cdk:cloudformation:props": {
-                "accessControl": "Private",
-                "bucketEncryption": {
-                  "serverSideEncryptionConfiguration": [
-                    {
-                      "serverSideEncryptionByDefault": {
-                        "sseAlgorithm": "AES256"
-                      }
+          "Domain": {
+            "id": "Domain",
+            "path": "FusionSubscriberStack/Domain",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/Domain/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::OpenSearchService::Domain",
+                  "aws:cdk:cloudformation:props": {
+                    "clusterConfig": {
+                      "dedicatedMasterEnabled": true,
+                      "dedicatedMasterCount": 3,
+                      "dedicatedMasterType": "r5.large.search",
+                      "instanceCount": 3,
+                      "instanceType": "r5.large.search",
+                      "zoneAwarenessEnabled": false
+                    },
+                    "domainEndpointOptions": {
+                      "enforceHttps": false,
+                      "tlsSecurityPolicy": "Policy-Min-TLS-1-0-2019-07"
+                    },
+                    "domainName": "fusion1",
+                    "ebsOptions": {
+                      "ebsEnabled": true,
+                      "volumeSize": 50,
+                      "volumeType": "gp2"
+                    },
+                    "encryptionAtRestOptions": {
+                      "enabled": true
+                    },
+                    "engineVersion": "OpenSearch_1.3",
+                    "logPublishingOptions": {},
+                    "nodeToNodeEncryptionOptions": {
+                      "enabled": true
                     }
-                  ]
-                },
-                "bucketName": "fusion-bucket-2",
-                "publicAccessBlockConfiguration": {
-                  "blockPublicAcls": true,
-                  "blockPublicPolicy": true,
-                  "ignorePublicAcls": true,
-                  "restrictPublicBuckets": true
-                },
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
                   }
-                ],
-                "versioningConfiguration": {
-                  "status": "Enabled"
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_opensearchservice.CfnDomain",
+                  "version": "2.63.2"
                 }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
-              "version": "2.63.2"
-            }
-          },
-          "MyCfnTable": {
-            "id": "MyCfnTable",
-            "path": "FusionSubscriberStack/MyCfnTable",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
-              "aws:cdk:cloudformation:props": {
-                "keySchema": [
-                  {
-                    "attributeName": "ref_event_uid",
-                    "keyType": "HASH"
-                  }
-                ],
-                "attributeDefinitions": [
-                  {
-                    "attributeName": "ref_event_uid",
-                    "attributeType": "N"
-                  }
-                ],
-                "billingMode": "PAY_PER_REQUEST",
-                "sseSpecification": {
-                  "sseEnabled": true
-                },
-                "tableClass": "STANDARD",
-                "tableName": "fusiondynamodbtable",
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
-                  }
-                ]
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
-              "version": "2.63.2"
-            }
-          },
-          "MyCfnDomain": {
-            "id": "MyCfnDomain",
-            "path": "FusionSubscriberStack/MyCfnDomain",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::OpenSearchService::Domain",
-              "aws:cdk:cloudformation:props": {
-                "clusterConfig": {
-                  "dedicatedMasterCount": 3,
-                  "dedicatedMasterEnabled": true,
-                  "dedicatedMasterType": "r6g.large.search",
-                  "instanceCount": 3,
-                  "instanceType": "r6g.large.search",
-                  "zoneAwarenessEnabled": false
-                },
-                "domainName": "fusion1",
-                "ebsOptions": {
-                  "ebsEnabled": true,
-                  "iops": 3000,
-                  "throughput": 125,
-                  "volumeSize": 50,
-                  "volumeType": "gp3"
-                },
-                "engineVersion": "OpenSearch_1.1",
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
-                  }
-                ]
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_opensearchservice.CfnDomain",
+              "fqn": "aws-cdk-lib.aws_opensearchservice.Domain",
               "version": "2.63.2"
             }
           },

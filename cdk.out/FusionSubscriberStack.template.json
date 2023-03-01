@@ -1,106 +1,45 @@
 {
  "Resources": {
-  "fusionbucket1": {
-   "Type": "AWS::S3::Bucket",
-   "Properties": {
-    "AccessControl": "Private",
-    "BucketEncryption": {
-     "ServerSideEncryptionConfiguration": [
-      {
-       "ServerSideEncryptionByDefault": {
-        "SSEAlgorithm": "AES256"
-       }
-      }
-     ]
-    },
-    "BucketName": "fusion-bucket-2",
-    "PublicAccessBlockConfiguration": {
-     "BlockPublicAcls": true,
-     "BlockPublicPolicy": true,
-     "IgnorePublicAcls": true,
-     "RestrictPublicBuckets": true
-    },
-    "Tags": [
-     {
-      "Key": "environment",
-      "Value": "development"
-     }
-    ],
-    "VersioningConfiguration": {
-     "Status": "Enabled"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/fusion-bucket-1"
-   }
-  },
-  "MyCfnTable": {
-   "Type": "AWS::DynamoDB::Table",
-   "Properties": {
-    "KeySchema": [
-     {
-      "AttributeName": "ref_event_uid",
-      "KeyType": "HASH"
-     }
-    ],
-    "AttributeDefinitions": [
-     {
-      "AttributeName": "ref_event_uid",
-      "AttributeType": "N"
-     }
-    ],
-    "BillingMode": "PAY_PER_REQUEST",
-    "SSESpecification": {
-     "SSEEnabled": true
-    },
-    "TableClass": "STANDARD",
-    "TableName": "fusiondynamodbtable",
-    "Tags": [
-     {
-      "Key": "environment",
-      "Value": "development"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/MyCfnTable"
-   }
-  },
-  "MyCfnDomain": {
+  "Domain66AC69E0": {
    "Type": "AWS::OpenSearchService::Domain",
    "Properties": {
     "ClusterConfig": {
      "DedicatedMasterCount": 3,
      "DedicatedMasterEnabled": true,
-     "DedicatedMasterType": "r6g.large.search",
+     "DedicatedMasterType": "r5.large.search",
      "InstanceCount": 3,
-     "InstanceType": "r6g.large.search",
+     "InstanceType": "r5.large.search",
      "ZoneAwarenessEnabled": false
+    },
+    "DomainEndpointOptions": {
+     "EnforceHTTPS": false,
+     "TLSSecurityPolicy": "Policy-Min-TLS-1-0-2019-07"
     },
     "DomainName": "fusion1",
     "EBSOptions": {
      "EBSEnabled": true,
-     "Iops": 3000,
-     "Throughput": 125,
      "VolumeSize": 50,
-     "VolumeType": "gp3"
+     "VolumeType": "gp2"
     },
-    "EngineVersion": "OpenSearch_1.1",
-    "Tags": [
-     {
-      "Key": "environment",
-      "Value": "development"
-     }
-    ]
+    "EncryptionAtRestOptions": {
+     "Enabled": true
+    },
+    "EngineVersion": "OpenSearch_1.3",
+    "LogPublishingOptions": {},
+    "NodeToNodeEncryptionOptions": {
+     "Enabled": true
+    }
    },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
    "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/MyCfnDomain"
+    "aws:cdk:path": "FusionSubscriberStack/Domain/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWJWwrCMBBF19L/JGoDLsC6AKn+Sx4jHdPOSB5KKe7dBOHCPZzTq6NWfWc+STof5IxWbddsXBBV3bek1fCgU3EBsvArmYW9bepm7AyCX0AJTHRTgvhGBy2deTFIX1FxhMQlOmg8MHnMyLVc1jwx7bQ67Ou6Z0KUsVDGBdT4/x/u51KHmAAAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yXJUQqDQAwE0LP478ZWwQvoAYo9QNnGiNGalM3aUqR3d0UYmMdMCXUFZea/5rCf3YufsN2jxzlP00PfJEY+4GgUPowEW6uLZ8mbQU79D3Zkugakw41Kz5E1PbdfHFWKCq6XlGwyZhdWibwQdGfv8NX+XIAAAAA="
    },
    "Metadata": {
     "aws:cdk:path": "FusionSubscriberStack/CDKMetadata/Default"

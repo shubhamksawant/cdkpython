@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/a7198059ecfe43b72ed31f406e7c632cc4ea23150a159f9932ec5ecf7a79f3c8.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/c23bf537b6f7a73c7479e0be875228d3f35d13b28c390a22f14bc9a16e560851.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -33,22 +33,16 @@
         "FusionSubscriberStack.assets"
       ],
       "metadata": {
-        "/FusionSubscriberStack/fusion-bucket-1": [
+        "/FusionSubscriberStack/Domain": [
           {
-            "type": "aws:cdk:logicalId",
-            "data": "fusionbucket1"
+            "type": "aws:cdk:hasPhysicalName",
+            "data": "fusion1"
           }
         ],
-        "/FusionSubscriberStack/MyCfnTable": [
+        "/FusionSubscriberStack/Domain/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "MyCfnTable"
-          }
-        ],
-        "/FusionSubscriberStack/MyCfnDomain": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "MyCfnDomain"
+            "data": "Domain66AC69E0"
           }
         ],
         "/FusionSubscriberStack/CDKMetadata/Default": [
