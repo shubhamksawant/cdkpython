@@ -11,76 +11,91 @@
           "fusion-bucket-1": {
             "id": "fusion-bucket-1",
             "path": "FusionSubscriberStack/fusion-bucket-1",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
-              "aws:cdk:cloudformation:props": {
-                "accessControl": "Private",
-                "bucketEncryption": {
-                  "serverSideEncryptionConfiguration": [
-                    {
-                      "serverSideEncryptionByDefault": {
-                        "sseAlgorithm": "AES256"
-                      }
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/fusion-bucket-1/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
+                  "aws:cdk:cloudformation:props": {
+                    "bucketEncryption": {
+                      "serverSideEncryptionConfiguration": [
+                        {
+                          "serverSideEncryptionByDefault": {
+                            "sseAlgorithm": "AES256"
+                          }
+                        }
+                      ]
+                    },
+                    "bucketName": "fusion-bucket-2",
+                    "publicAccessBlockConfiguration": {
+                      "blockPublicAcls": true,
+                      "blockPublicPolicy": true,
+                      "ignorePublicAcls": true,
+                      "restrictPublicBuckets": true
+                    },
+                    "versioningConfiguration": {
+                      "status": "Enabled"
                     }
-                  ]
-                },
-                "bucketName": "fusion-bucket-2",
-                "publicAccessBlockConfiguration": {
-                  "blockPublicAcls": true,
-                  "blockPublicPolicy": true,
-                  "ignorePublicAcls": true,
-                  "restrictPublicBuckets": true
-                },
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
                   }
-                ],
-                "versioningConfiguration": {
-                  "status": "Enabled"
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                  "version": "2.63.2"
                 }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+              "fqn": "aws-cdk-lib.aws_s3.Bucket",
               "version": "2.63.2"
             }
           },
           "MyCfnTable": {
             "id": "MyCfnTable",
             "path": "FusionSubscriberStack/MyCfnTable",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
-              "aws:cdk:cloudformation:props": {
-                "keySchema": [
-                  {
-                    "attributeName": "ref_event_uid",
-                    "keyType": "HASH"
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/MyCfnTable/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "keySchema": [
+                      {
+                        "attributeName": "ref_event_uid",
+                        "keyType": "HASH"
+                      }
+                    ],
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "ref_event_uid",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "sseSpecification": {
+                      "sseEnabled": true
+                    },
+                    "tableClass": "STANDARD",
+                    "tableName": "fusiondynamodbtable"
                   }
-                ],
-                "attributeDefinitions": [
-                  {
-                    "attributeName": "ref_event_uid",
-                    "attributeType": "N"
-                  }
-                ],
-                "billingMode": "PAY_PER_REQUEST",
-                "sseSpecification": {
-                  "sseEnabled": true
                 },
-                "tableClass": "STANDARD",
-                "tableName": "fusiondynamodbtable",
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
-                  }
-                ]
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+                  "version": "2.63.2"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "FusionSubscriberStack/MyCfnTable/ScalingRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.63.2"
+                }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
               "version": "2.63.2"
             }
           },

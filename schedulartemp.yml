@@ -1,0 +1,167 @@
+Resources:
+  MyCfnSchedule:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      FlexibleTimeWindow:
+        MaximumWindowInMinutes: 123
+        Mode: mode
+      ScheduleExpression: scheduleExpression
+      Target:
+        Arn: arn
+        DeadLetterConfig:
+          Arn: arn
+        EcsParameters:
+          CapacityProviderStrategy:
+            - Base: 123
+              CapacityProvider: capacityProvider
+              Weight: 123
+          EnableECSManagedTags: false
+          EnableExecuteCommand: false
+          Group: group
+          LaunchType: launchType
+          NetworkConfiguration:
+            AwsvpcConfiguration:
+              AssignPublicIp: assignPublicIp
+              SecurityGroups:
+                - securityGroups
+              Subnets:
+                - subnets
+          PlacementConstraints:
+            - Expression: expression
+              Type: type
+          PlacementStrategy:
+            - Field: field
+              Type: type
+          PlatformVersion: platformVersion
+          PropagateTags: propagateTags
+          ReferenceId: referenceId
+          TaskCount: 123
+          TaskDefinitionArn: taskDefinitionArn
+        EventBridgeParameters:
+          DetailType: detailType
+          Source: source
+        Input: input
+        KinesisParameters:
+          PartitionKey: partitionKey
+        RetryPolicy:
+          MaximumEventAgeInSeconds: 123
+          MaximumRetryAttempts: 123
+        RoleArn: roleArn
+        SageMakerPipelineParameters:
+          PipelineParameterList:
+            - Name: name
+              Value: value
+        SqsParameters:
+          MessageGroupId: messageGroupId
+    Metadata:
+      aws:cdk:path: FusionSubscriberStack/MyCfnSchedule
+Resources:
+  MyCfnSchedule:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      FlexibleTimeWindow:
+        Mode: FLEXIBLE
+      ScheduleExpression: cron(0/3 * * * ? *)
+      Target:
+        Arn: arn:aws:lambda:us-east-2:276301730779:function:test
+        RoleArn: arn:aws:iam::276301730779:role/service-role/Amazon_EventBridge_Scheduler_LAMBDA_cbdda1fb8a
+    Metadata:
+      aws:cdk:path: FusionSubscriberStack/MyCfnSchedule
+  CDKMetadata:
+    Type: AWS::CDK::Metadata
+    Properties:
+      Analytics: v2:deflate64:H4sIAAAAAAAA/zPSMzPWM1JMLC/WTU7J1s3JTNKrDi5JTM7WAQrFFydnpKaU5qQW6Tmn5QVDOTpAdlBqcX5pUTKY7Zyfl5JZkpmfV6sTUFmSkZ+nb6xnaABEilnFmZm6RaV5JZm5qXpBEBoAQK/smXEAAAA=
+    Metadata:
+      aws:cdk:path: FusionSubscriberStack/CDKMetadata/Default
+    Condition: CDKMetadataAvailable
+Conditions:
+  CDKMetadataAvailable:
+    Fn::Or:
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - af-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-northeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ap-southeast-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - ca-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - cn-northwest-1
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-central-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-north-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-2
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - eu-west-3
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - me-south-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - sa-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-east-2
+      - Fn::Or:
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-1
+          - Fn::Equals:
+              - Ref: AWS::Region
+              - us-west-2
+Parameters:
+  BootstrapVersion:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /cdk-bootstrap/hnb659fds/version
+    Description: Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]
+Rules:
+  CheckBootstrapVersion:
+    Assertions:
+      - Assert:
+          Fn::Not:
+            - Fn::Contains:
+                - - "1"
+                  - "2"
+                  - "3"
+                  - "4"
+                  - "5"
+                - Ref: BootstrapVersion
+        AssertDescription: CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.
+

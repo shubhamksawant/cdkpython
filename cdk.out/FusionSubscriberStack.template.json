@@ -1,9 +1,8 @@
 {
  "Resources": {
-  "fusionbucket1": {
+  "fusionbucket13E7C0EA6": {
    "Type": "AWS::S3::Bucket",
    "Properties": {
-    "AccessControl": "Private",
     "BucketEncryption": {
      "ServerSideEncryptionConfiguration": [
       {
@@ -20,21 +19,17 @@
      "IgnorePublicAcls": true,
      "RestrictPublicBuckets": true
     },
-    "Tags": [
-     {
-      "Key": "environment",
-      "Value": "development"
-     }
-    ],
     "VersioningConfiguration": {
      "Status": "Enabled"
     }
    },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
    "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/fusion-bucket-1"
+    "aws:cdk:path": "FusionSubscriberStack/fusion-bucket-1/Resource"
    }
   },
-  "MyCfnTable": {
+  "MyCfnTableE33D3CBE": {
    "Type": "AWS::DynamoDB::Table",
    "Properties": {
     "KeySchema": [
@@ -46,7 +41,7 @@
     "AttributeDefinitions": [
      {
       "AttributeName": "ref_event_uid",
-      "AttributeType": "N"
+      "AttributeType": "S"
      }
     ],
     "BillingMode": "PAY_PER_REQUEST",
@@ -54,22 +49,18 @@
      "SSEEnabled": true
     },
     "TableClass": "STANDARD",
-    "TableName": "fusiondynamodbtable",
-    "Tags": [
-     {
-      "Key": "environment",
-      "Value": "development"
-     }
-    ]
+    "TableName": "fusiondynamodbtable"
    },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
    "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/MyCfnTable"
+    "aws:cdk:path": "FusionSubscriberStack/MyCfnTable/Resource"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWIWwqDMBAAz+J/sm0N9AD1AsX6X/LY0m10F0xCEfHuRoSBGaaFu4G2sf+kfYh6JAfrK1sfVV3vNRnoPvwoPmJWYWE7SXDHGqwbcVO1ekxSZo9Hd8KBMglv6rnkr/DFwO1aaX6JSM+FM00I/ekdfA+iinwAAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02KUQrCMBBEz9L/ZNUGegB7Aan+S5pEXNPuQpMgJeTupu2PMDCPN9NCp6Bt9DdIY72ccIR8j9p4UdUzBwX5mox3UfQvOqgIu5Ke2dbrQ4+T26YdShGDC5wWs7t/7pksRmQq4rbGN9NJweVc03wColwSRZwdDEf/AMjpn/aWAAAA"
    },
    "Metadata": {
     "aws:cdk:path": "FusionSubscriberStack/CDKMetadata/Default"
