@@ -8,173 +8,120 @@
         "id": "FusionSubscriberStack",
         "path": "FusionSubscriberStack",
         "children": {
-          "fusion-bucket-1": {
-            "id": "fusion-bucket-1",
-            "path": "FusionSubscriberStack/fusion-bucket-1",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
-              "aws:cdk:cloudformation:props": {
-                "accessControl": "Private",
-                "bucketEncryption": {
-                  "serverSideEncryptionConfiguration": [
-                    {
-                      "serverSideEncryptionByDefault": {
-                        "sseAlgorithm": "AES256"
-                      }
-                    }
-                  ]
-                },
-                "bucketName": "fusion-bucket-2",
-                "publicAccessBlockConfiguration": {
-                  "blockPublicAcls": true,
-                  "blockPublicPolicy": true,
-                  "ignorePublicAcls": true,
-                  "restrictPublicBuckets": true
-                },
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
+          "eventschedulerServiceRolePolicy": {
+            "id": "eventschedulerServiceRolePolicy",
+            "path": "FusionSubscriberStack/eventschedulerServiceRolePolicy",
+            "children": {
+              "ImportedeventschedulerServiceRolePolicy": {
+                "id": "ImportedeventschedulerServiceRolePolicy",
+                "path": "FusionSubscriberStack/eventschedulerServiceRolePolicy/ImportedeventschedulerServiceRolePolicy",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.63.2"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/eventschedulerServiceRolePolicy/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::ManagedPolicy",
+                  "aws:cdk:cloudformation:props": {
+                    "policyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "lambda:InvokeFunction",
+                          "Effect": "Allow",
+                          "Resource": "*"
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "description": "",
+                    "path": "/"
                   }
-                ],
-                "versioningConfiguration": {
-                  "status": "Enabled"
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnManagedPolicy",
+                  "version": "2.63.2"
                 }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+              "fqn": "aws-cdk-lib.aws_iam.ManagedPolicy",
               "version": "2.63.2"
             }
           },
-          "MyCfnTable": {
-            "id": "MyCfnTable",
-            "path": "FusionSubscriberStack/MyCfnTable",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
-              "aws:cdk:cloudformation:props": {
-                "keySchema": [
-                  {
-                    "attributeName": "ref_event_uid",
-                    "keyType": "HASH"
+          "eventschedulerServiceRole": {
+            "id": "eventschedulerServiceRole",
+            "path": "FusionSubscriberStack/eventschedulerServiceRole",
+            "children": {
+              "ImporteventschedulerServiceRole": {
+                "id": "ImporteventschedulerServiceRole",
+                "path": "FusionSubscriberStack/eventschedulerServiceRole/ImporteventschedulerServiceRole",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.63.2"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/eventschedulerServiceRole/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "scheduler.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Ref": "eventschedulerServiceRolePolicyBF690D02"
+                      }
+                    ]
                   }
-                ],
-                "attributeDefinitions": [
-                  {
-                    "attributeName": "ref_event_uid",
-                    "attributeType": "N"
-                  }
-                ],
-                "billingMode": "PAY_PER_REQUEST",
-                "sseSpecification": {
-                  "sseEnabled": true
                 },
-                "tableClass": "STANDARD",
-                "tableName": "fusiondynamodbtable",
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
-                  }
-                ]
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.63.2"
+                }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
+              "fqn": "aws-cdk-lib.aws_iam.Role",
               "version": "2.63.2"
             }
           },
-          "MyCfnDomain": {
-            "id": "MyCfnDomain",
-            "path": "FusionSubscriberStack/MyCfnDomain",
+          "MyCfnSchedule": {
+            "id": "MyCfnSchedule",
+            "path": "FusionSubscriberStack/MyCfnSchedule",
             "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::OpenSearchService::Domain",
+              "aws:cdk:cloudformation:type": "AWS::Scheduler::Schedule",
               "aws:cdk:cloudformation:props": {
-                "clusterConfig": {
-                  "dedicatedMasterCount": 3,
-                  "dedicatedMasterEnabled": true,
-                  "dedicatedMasterType": "r6g.large.search",
-                  "instanceCount": 3,
-                  "instanceType": "r6g.large.search",
-                  "zoneAwarenessEnabled": false
+                "flexibleTimeWindow": {
+                  "mode": "OFF"
                 },
-                "domainName": "fusion1",
-                "ebsOptions": {
-                  "ebsEnabled": true,
-                  "iops": 3000,
-                  "throughput": 125,
-                  "volumeSize": 50,
-                  "volumeType": "gp3"
-                },
-                "engineVersion": "OpenSearch_1.1",
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
+                "scheduleExpression": "cron(0/3 * * * ? *)",
+                "target": {
+                  "arn": "arn:aws:lambda:us-east-2:276301730779:function:test",
+                  "roleArn": {
+                    "Fn::GetAtt": [
+                      "eventschedulerServiceRole69632510",
+                      "Arn"
+                    ]
                   }
-                ]
+                }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_opensearchservice.CfnDomain",
-              "version": "2.63.2"
-            }
-          },
-          "MyCfnApplication": {
-            "id": "MyCfnApplication",
-            "path": "FusionSubscriberStack/MyCfnApplication",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::EMRServerless::Application",
-              "aws:cdk:cloudformation:props": {
-                "releaseLabel": "emr-6.9.0",
-                "type": "Spark",
-                "autoStartConfiguration": {
-                  "enabled": true
-                },
-                "autoStopConfiguration": {
-                  "enabled": true,
-                  "idleTimeoutMinutes": 100
-                },
-                "initialCapacity": [
-                  {
-                    "key": "Executor",
-                    "value": {
-                      "workerConfiguration": {
-                        "cpu": "4 vCPU",
-                        "memory": "16 GB",
-                        "disk": "20 GB"
-                      },
-                      "workerCount": 3
-                    }
-                  },
-                  {
-                    "key": "Driver",
-                    "value": {
-                      "workerConfiguration": {
-                        "cpu": "4 vCPU",
-                        "memory": "16 GB",
-                        "disk": "20 GB"
-                      },
-                      "workerCount": 1
-                    }
-                  }
-                ],
-                "maximumCapacity": {
-                  "cpu": "400 vCPU",
-                  "memory": "3000 GB",
-                  "disk": "20000 GB"
-                },
-                "name": "fusion-subscriber",
-                "tags": [
-                  {
-                    "key": "environment",
-                    "value": "development"
-                  }
-                ]
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_emrserverless.CfnApplication",
+              "fqn": "aws-cdk-lib.aws_scheduler.CfnSchedule",
               "version": "2.63.2"
             }
           },

@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/2b074fc8423e4d17e5ed409f9b1373b43242e89100ef052387bbc3e078341ad7.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/5c30047599186ac96b440e4f73de33891663298e253e1f1088585528b5acb760.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -33,28 +33,22 @@
         "FusionSubscriberStack.assets"
       ],
       "metadata": {
-        "/FusionSubscriberStack/fusion-bucket-1": [
+        "/FusionSubscriberStack/eventschedulerServiceRolePolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "fusionbucket1"
+            "data": "eventschedulerServiceRolePolicyBF690D02"
           }
         ],
-        "/FusionSubscriberStack/MyCfnTable": [
+        "/FusionSubscriberStack/eventschedulerServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "MyCfnTable"
+            "data": "eventschedulerServiceRole69632510"
           }
         ],
-        "/FusionSubscriberStack/MyCfnDomain": [
+        "/FusionSubscriberStack/MyCfnSchedule": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "MyCfnDomain"
-          }
-        ],
-        "/FusionSubscriberStack/MyCfnApplication": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "MyCfnApplication"
+            "data": "MyCfnSchedule"
           }
         ],
         "/FusionSubscriberStack/CDKMetadata/Default": [

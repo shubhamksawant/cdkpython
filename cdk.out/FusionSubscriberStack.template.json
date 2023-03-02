@@ -1,159 +1,75 @@
 {
  "Resources": {
-  "fusionbucket1": {
-   "Type": "AWS::S3::Bucket",
+  "eventschedulerServiceRolePolicyBF690D02": {
+   "Type": "AWS::IAM::ManagedPolicy",
    "Properties": {
-    "AccessControl": "Private",
-    "BucketEncryption": {
-     "ServerSideEncryptionConfiguration": [
+    "PolicyDocument": {
+     "Statement": [
       {
-       "ServerSideEncryptionByDefault": {
-        "SSEAlgorithm": "AES256"
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Description": "",
+    "Path": "/"
+   },
+   "Metadata": {
+    "aws:cdk:path": "FusionSubscriberStack/eventschedulerServiceRolePolicy/Resource"
+   }
+  },
+  "eventschedulerServiceRole69632510": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "scheduler.amazonaws.com"
        }
       }
-     ]
+     ],
+     "Version": "2012-10-17"
     },
-    "BucketName": "fusion-bucket-2",
-    "PublicAccessBlockConfiguration": {
-     "BlockPublicAcls": true,
-     "BlockPublicPolicy": true,
-     "IgnorePublicAcls": true,
-     "RestrictPublicBuckets": true
-    },
-    "Tags": [
+    "ManagedPolicyArns": [
      {
-      "Key": "environment",
-      "Value": "development"
+      "Ref": "eventschedulerServiceRolePolicyBF690D02"
      }
-    ],
-    "VersioningConfiguration": {
-     "Status": "Enabled"
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "FusionSubscriberStack/eventschedulerServiceRole/Resource"
+   }
+  },
+  "MyCfnSchedule": {
+   "Type": "AWS::Scheduler::Schedule",
+   "Properties": {
+    "FlexibleTimeWindow": {
+     "Mode": "OFF"
+    },
+    "ScheduleExpression": "cron(0/3 * * * ? *)",
+    "Target": {
+     "Arn": "arn:aws:lambda:us-east-2:276301730779:function:test",
+     "RoleArn": {
+      "Fn::GetAtt": [
+       "eventschedulerServiceRole69632510",
+       "Arn"
+      ]
+     }
     }
    },
    "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/fusion-bucket-1"
-   }
-  },
-  "MyCfnTable": {
-   "Type": "AWS::DynamoDB::Table",
-   "Properties": {
-    "KeySchema": [
-     {
-      "AttributeName": "ref_event_uid",
-      "KeyType": "HASH"
-     }
-    ],
-    "AttributeDefinitions": [
-     {
-      "AttributeName": "ref_event_uid",
-      "AttributeType": "N"
-     }
-    ],
-    "BillingMode": "PAY_PER_REQUEST",
-    "SSESpecification": {
-     "SSEEnabled": true
-    },
-    "TableClass": "STANDARD",
-    "TableName": "fusiondynamodbtable",
-    "Tags": [
-     {
-      "Key": "environment",
-      "Value": "development"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/MyCfnTable"
-   }
-  },
-  "MyCfnDomain": {
-   "Type": "AWS::OpenSearchService::Domain",
-   "Properties": {
-    "ClusterConfig": {
-     "DedicatedMasterCount": 3,
-     "DedicatedMasterEnabled": true,
-     "DedicatedMasterType": "r6g.large.search",
-     "InstanceCount": 3,
-     "InstanceType": "r6g.large.search",
-     "ZoneAwarenessEnabled": false
-    },
-    "DomainName": "fusion1",
-    "EBSOptions": {
-     "EBSEnabled": true,
-     "Iops": 3000,
-     "Throughput": 125,
-     "VolumeSize": 50,
-     "VolumeType": "gp3"
-    },
-    "EngineVersion": "OpenSearch_1.1",
-    "Tags": [
-     {
-      "Key": "environment",
-      "Value": "development"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/MyCfnDomain"
-   }
-  },
-  "MyCfnApplication": {
-   "Type": "AWS::EMRServerless::Application",
-   "Properties": {
-    "ReleaseLabel": "emr-6.9.0",
-    "Type": "Spark",
-    "AutoStartConfiguration": {
-     "Enabled": true
-    },
-    "AutoStopConfiguration": {
-     "Enabled": true,
-     "IdleTimeoutMinutes": 100
-    },
-    "InitialCapacity": [
-     {
-      "Key": "Executor",
-      "Value": {
-       "WorkerConfiguration": {
-        "Cpu": "4 vCPU",
-        "Disk": "20 GB",
-        "Memory": "16 GB"
-       },
-       "WorkerCount": 3
-      }
-     },
-     {
-      "Key": "Driver",
-      "Value": {
-       "WorkerConfiguration": {
-        "Cpu": "4 vCPU",
-        "Disk": "20 GB",
-        "Memory": "16 GB"
-       },
-       "WorkerCount": 1
-      }
-     }
-    ],
-    "MaximumCapacity": {
-     "Cpu": "400 vCPU",
-     "Disk": "20000 GB",
-     "Memory": "3000 GB"
-    },
-    "Name": "fusion-subscriber",
-    "Tags": [
-     {
-      "Key": "environment",
-      "Value": "development"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/MyCfnApplication"
+    "aws:cdk:path": "FusionSubscriberStack/MyCfnSchedule"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/yWJwQ6CMBBEv4V7qQqJd8UPMODdLO0aVtot6RYNIf67NCSTzMx7lT7XuirgK6WxY+mo12uXwIxqQ89Vat28+DqbEZOyC4MPts/oAb1DFSZkQYhmEIwfMpjVLXggVuhjhhgdimR+mSZHBhIF/qnttyhhjgbzbgJb2s19SUPgQ61Pxy3FW4jKOHMij7rd+w/TpmiNtQAAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WKWwrCMBRE19L/5KotuIF+CyVdQIlJtNemN5AHUkL2bkr9UBg4M4dp4dpB28h34Eov3OId8hilWlhVU0a5Qr5Jkk+jB2dRbax/0L8Qzprd7iwsqNnoZI2HqsbvKEyY4JJXx/Gn9440RnRU2LDF2dGpg8u5pnkFRO4TRVwNiIMfh47TnK4AAAA="
    },
    "Metadata": {
     "aws:cdk:path": "FusionSubscriberStack/CDKMetadata/Default"
