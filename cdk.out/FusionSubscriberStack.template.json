@@ -19,6 +19,16 @@
      "IgnorePublicAcls": true,
      "RestrictPublicBuckets": true
     },
+    "Tags": [
+     {
+      "Key": "key1",
+      "Value": "value1"
+     },
+     {
+      "Key": "key2",
+      "Value": "value2"
+     }
+    ],
     "VersioningConfiguration": {
      "Status": "Enabled"
     }
@@ -29,38 +39,10 @@
     "aws:cdk:path": "FusionSubscriberStack/fusion-bucket-1/Resource"
    }
   },
-  "MyCfnTableE33D3CBE": {
-   "Type": "AWS::DynamoDB::Table",
-   "Properties": {
-    "KeySchema": [
-     {
-      "AttributeName": "ref_event_uid",
-      "KeyType": "HASH"
-     }
-    ],
-    "AttributeDefinitions": [
-     {
-      "AttributeName": "ref_event_uid",
-      "AttributeType": "S"
-     }
-    ],
-    "BillingMode": "PAY_PER_REQUEST",
-    "SSESpecification": {
-     "SSEEnabled": true
-    },
-    "TableClass": "STANDARD",
-    "TableName": "fusiondynamodbtable"
-   },
-   "UpdateReplacePolicy": "Retain",
-   "DeletionPolicy": "Retain",
-   "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/MyCfnTable/Resource"
-   }
-  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02KUQrCMBBEz9L/ZNUGegB7Aan+S5pEXNPuQpMgJeTupu2PMDCPN9NCp6Bt9DdIY72ccIR8j9p4UdUzBwX5mox3UfQvOqgIu5Ke2dbrQ4+T26YdShGDC5wWs7t/7pksRmQq4rbGN9NJweVc03wColwSRZwdDEf/AMjpn/aWAAAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/zPSMzPWM1JMLC/WTU7J1s3JTNKrDi5JTM7WAQrFFxvrVTuVJmenlug4p+VBWLUgZlBqcX5pUXIqiO2cn5eSWZKZn1erE1BZkpGfp2+sZ2gARIpZxZmZukWleSWZual6QRAaANfEBX1xAAAA"
    },
    "Metadata": {
     "aws:cdk:path": "FusionSubscriberStack/CDKMetadata/Default"

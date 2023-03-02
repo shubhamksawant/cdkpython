@@ -38,7 +38,7 @@ from aws_cdk import (
     # core as cdk
 )
 from constructs import Construct
-
+from aws_cdk import Tags
 class FusionSubscriberStack(Stack):
 
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
@@ -66,15 +66,31 @@ class FusionSubscriberStack(Stack):
                           
                           )
         
-        alertdynaomodb = dynamodb.Table(self, "MyCfnTable",
-                        table_name= "fusiondynamodbtable",
-                        encryption= dynamodb.TableEncryption.AWS_MANAGED,
-                        partition_key=dynamodb.Attribute(name="ref_event_uid", type=dynamodb.AttributeType.STRING),
-                #     replication_regions=["us-east-1", "us-east-2", "us-west-2"],
-                        billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
-                        table_class=dynamodb.TableClass.STANDARD
+        Tags.of(alertbucket).add("key1", "value1")
+        Tags.of(alertbucket).add("key2", "value2")
 
-                 )
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        # alertdynaomodb = dynamodb.Table(self, "MyCfnTable",
+        #                 table_name= "fusiondynamodbtable",
+        #                 encryption= dynamodb.TableEncryption.AWS_MANAGED,
+        #                 partition_key=dynamodb.Attribute(name="ref_event_uid", type=dynamodb.AttributeType.STRING),
+        #         #     replication_regions=["us-east-1", "us-east-2", "us-west-2"],
+        #                 billing_mode=dynamodb.BillingMode.PAY_PER_REQUEST,
+        #                 table_class=dynamodb.TableClass.STANDARD
+
+        #          )
 
 
 

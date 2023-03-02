@@ -34,6 +34,16 @@
                       "ignorePublicAcls": true,
                       "restrictPublicBuckets": true
                     },
+                    "tags": [
+                      {
+                        "key": "key1",
+                        "value": "value1"
+                      },
+                      {
+                        "key": "key2",
+                        "value": "value2"
+                      }
+                    ],
                     "versioningConfiguration": {
                       "status": "Enabled"
                     }
@@ -47,55 +57,6 @@
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_s3.Bucket",
-              "version": "2.63.2"
-            }
-          },
-          "MyCfnTable": {
-            "id": "MyCfnTable",
-            "path": "FusionSubscriberStack/MyCfnTable",
-            "children": {
-              "Resource": {
-                "id": "Resource",
-                "path": "FusionSubscriberStack/MyCfnTable/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
-                  "aws:cdk:cloudformation:props": {
-                    "keySchema": [
-                      {
-                        "attributeName": "ref_event_uid",
-                        "keyType": "HASH"
-                      }
-                    ],
-                    "attributeDefinitions": [
-                      {
-                        "attributeName": "ref_event_uid",
-                        "attributeType": "S"
-                      }
-                    ],
-                    "billingMode": "PAY_PER_REQUEST",
-                    "sseSpecification": {
-                      "sseEnabled": true
-                    },
-                    "tableClass": "STANDARD",
-                    "tableName": "fusiondynamodbtable"
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_dynamodb.CfnTable",
-                  "version": "2.63.2"
-                }
-              },
-              "ScalingRole": {
-                "id": "ScalingRole",
-                "path": "FusionSubscriberStack/MyCfnTable/ScalingRole",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.Resource",
-                  "version": "2.63.2"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_dynamodb.Table",
               "version": "2.63.2"
             }
           },
