@@ -17,7 +17,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-deploy-role-${AWS::AccountId}-${AWS::Region}",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-cfn-exec-role-${AWS::AccountId}-${AWS::Region}",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/5c30047599186ac96b440e4f73de33891663298e253e1f1088585528b5acb760.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}/721456dd1118760b18dcc097bc583fa1c03469fb8612fefd28384cc3f5586afb.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -45,10 +45,10 @@
             "data": "eventschedulerServiceRole69632510"
           }
         ],
-        "/FusionSubscriberStack/MyCfnSchedule": [
+        "/FusionSubscriberStack/FusionLambdaFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "MyCfnSchedule"
+            "data": "FusionLambdaFunction1703FE9E"
           }
         ],
         "/FusionSubscriberStack/CDKMetadata/Default": [

@@ -99,29 +99,78 @@
               "version": "2.63.2"
             }
           },
-          "MyCfnSchedule": {
-            "id": "MyCfnSchedule",
-            "path": "FusionSubscriberStack/MyCfnSchedule",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::Scheduler::Schedule",
-              "aws:cdk:cloudformation:props": {
-                "flexibleTimeWindow": {
-                  "mode": "OFF"
-                },
-                "scheduleExpression": "cron(0/3 * * * ? *)",
-                "target": {
-                  "arn": "arn:aws:lambda:us-east-2:276301730779:function:test",
-                  "roleArn": {
-                    "Fn::GetAtt": [
-                      "eventschedulerServiceRole69632510",
-                      "Arn"
-                    ]
+          "FusionLambdaFunction": {
+            "id": "FusionLambdaFunction",
+            "path": "FusionSubscriberStack/FusionLambdaFunction",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "FusionSubscriberStack/FusionLambdaFunction/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "FusionSubscriberStack/FusionLambdaFunction/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.63.2"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "FusionSubscriberStack/FusionLambdaFunction/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.63.2"
+                    }
                   }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.63.2"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "FusionSubscriberStack/FusionLambdaFunction/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": {
+                        "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+                      },
+                      "s3Key": "382314052216fd3566c5e864f8f763d17493be18eb88df6fe85c42d7f4e877ac.zip"
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "eventschedulerServiceRole69632510",
+                        "Arn"
+                      ]
+                    },
+                    "description": "Deploying Lambda Function Infrastrcture",
+                    "environment": {
+                      "variables": {
+                        "production_db_url": "YOUR_ACTUAL_PROD_DB_URL",
+                        "development_db_url": {
+                          "Fn::GetAtt": [
+                            "eventschedulerServiceRole69632510",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "handler": "hello.handler",
+                    "runtime": "python3.9"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.63.2"
                 }
               }
             },
             "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_scheduler.CfnSchedule",
+              "fqn": "aws-cdk-lib.aws_lambda.Function",
               "version": "2.63.2"
             }
           },

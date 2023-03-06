@@ -45,31 +45,50 @@
     "aws:cdk:path": "FusionSubscriberStack/eventschedulerServiceRole/Resource"
    }
   },
-  "MyCfnSchedule": {
-   "Type": "AWS::Scheduler::Schedule",
+  "FusionLambdaFunction1703FE9E": {
+   "Type": "AWS::Lambda::Function",
    "Properties": {
-    "FlexibleTimeWindow": {
-     "Mode": "OFF"
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "382314052216fd3566c5e864f8f763d17493be18eb88df6fe85c42d7f4e877ac.zip"
     },
-    "ScheduleExpression": "cron(0/3 * * * ? *)",
-    "Target": {
-     "Arn": "arn:aws:lambda:us-east-2:276301730779:function:test",
-     "RoleArn": {
-      "Fn::GetAtt": [
-       "eventschedulerServiceRole69632510",
-       "Arn"
-      ]
+    "Role": {
+     "Fn::GetAtt": [
+      "eventschedulerServiceRole69632510",
+      "Arn"
+     ]
+    },
+    "Description": "Deploying Lambda Function Infrastrcture",
+    "Environment": {
+     "Variables": {
+      "production_db_url": "YOUR_ACTUAL_PROD_DB_URL",
+      "development_db_url": {
+       "Fn::GetAtt": [
+        "eventschedulerServiceRole69632510",
+        "Arn"
+       ]
+      }
      }
-    }
+    },
+    "Handler": "hello.handler",
+    "Runtime": "python3.9"
    },
+   "DependsOn": [
+    "eventschedulerServiceRole69632510"
+   ],
    "Metadata": {
-    "aws:cdk:path": "FusionSubscriberStack/MyCfnSchedule"
+    "aws:cdk:path": "FusionSubscriberStack/FusionLambdaFunction/Resource",
+    "aws:asset:path": "asset.382314052216fd3566c5e864f8f763d17493be18eb88df6fe85c42d7f4e877ac",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WKWwrCMBRE19L/5KotuIF+CyVdQIlJtNemN5AHUkL2bkr9UBg4M4dp4dpB28h34Eov3OId8hilWlhVU0a5Qr5Jkk+jB2dRbax/0L8Qzprd7iwsqNnoZI2HqsbvKEyY4JJXx/Gn9440RnRU2LDF2dGpg8u5pnkFRO4TRVwNiIMfh47TnK4AAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WOwQqDMBBEv8V73LYKvVeht4LYD5A1Se3WmIBJKBL89yaKh8LCm51hhy3gWkKR4dfmXIy5oh7C0yEfWbS6QDhBeKDGQYrGKOILq1/632iNkslNXJnCqRcI4e41d2R0Sg69Mlt2aK10Fm4JcYfK81G6Cm08bqU1fuaSbWn8YyA9bN1HEHVttKC9rlnc2+hTCZdznOxjifLZa0eThHbnD3CF3dzhAAAA"
    },
    "Metadata": {
     "aws:cdk:path": "FusionSubscriberStack/CDKMetadata/Default"
